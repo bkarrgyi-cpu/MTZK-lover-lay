@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTZK lover</title>
+    <style>
+        body {
+            background-color: #fce4ec;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            width: 85%;
+            max-width: 320px;
+            text-align: center;
+            position: relative;
+            min-height: 380px;
+            box-sizing: border-box;
+        }
+        .step-card {
+            display: none;
+            width: 100%;
+        }
+        .step-card.active {
+            display: block;
+        }
+        .heart-icon {
+            font-size: 80px;
+            color: #e53935;
+            cursor: pointer;
+            margin: 30px 0;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .heart-icon:hover {
+            transform: scale(1.1);
+        }
+        .sticker {
+            width: 130px;
+            height: 130px;
+            object-fit: contain;
+            margin: 15px 0;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            position: relative;
+        }
+        .btn {
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: none;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .btn-green {
+            background-color: #2e7d32;
+            color: white;
+        }
+        .btn-lightgreen {
+            background-color: #a5d6a7;
+            color: #1b5e20;
+        }
+        .btn-run {
+            position: relative;
+            transition: 0.1s ease;
+        }
+        .full-screen-green {
+            background-color: #2e7d32;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 250px;
+            border-radius: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .agreement-title {
+            color: #d81b60;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .agreement-list {
+            text-align: left;
+            font-size: 12px;
+            padding: 0;
+            list-style: none;
+        }
+        .agreement-list li {
+            margin: 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .ans-tag {
+            background-color: #a5d6a7;
+            color: #1b5e20;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        .btn-save {
+            background-color: #2e7d32;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            font-weight: bold;
+            margin-top: 15px;
+            width: 100%;
+            cursor: pointer;
+        }
+        .error-msg {
+            color: #e53935;
+            font-size: 12px;
+            margin-top: 10px;
+            display: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Step 1 -->
+        <div class="step-card active" id="step1">
+            <h3 style="color: #e53935; margin-bottom: 5px;">Hello ရည်းစားဟောင်းလေး</h3>
+            <p style="color: #888; font-size: 12px; margin-top: 0;">Click The Heart</p>
+            <div class="heart-icon" onclick="nextStep(2)">❤️</div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card" id="step2">
+            <h3>ပြန်ချစ်ကြမလား?</h3>
+            <img src="https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif" class="sticker"><br>
+            <div class="btn-group">
+                <button class="btn btn-green" onclick="nextStep(3)">ချစ်တယ်</button>
+                <button class="btn btn-lightgreen" onclick="showError(2)">မချစ်ဘူး</button>
+            </div>
+            <div class="error-msg" id="err2">ဟင့်အင်း အဲ့ဒါ ရွေးလို့မရဘူး! 😜</div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card" id="step3">
+            <h3>သတိရနေတာ သိရဲ့လား</h3>
+            <img src="https://media.giphy.com/media/Cmr1OMJ2L0Q3m/giphy.gif" class="sticker"><br>
+            <button class="btn btn-green" onclick="nextStep(4)">သိတယ်</button>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-card" id="step4">
+            <h3>ပြန်တွဲကြမယ်လေ နော်..</h3>
+            <img src="https://media.giphy.com/media/26xBI73gWquCBBCDe/giphy.gif" class="sticker"><br>
+            <div class="btn-group">
+                <button class="btn btn-lightgreen" onclick="showError(4)">မတွဲဘူး</button>
+                <button class="btn btn-green btn-run" id="runBtn" onmouseover="moveBtn()" ontouchstart="moveBtn()" onclick="nextStep(5)">တွဲမယ်</button>
+            </div>
+            <div class="error-msg" id="err4">မရဘူး၊ တွဲကိုတွဲရမယ်! ❤️</div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="step-card" id="step5">
+            <h3>ပြန်လာမယ်မလား</h3>
+            <img src="https://media.giphy.com/media/nDSlfqf0pzjg7mEO0k/giphy.gif" class="sticker"><br>
+            <div class="btn-group">
+                <button class="btn btn-green" onclick="nextStep(6)">ပြန်လာမယ်</button>
+                <button class="btn btn-lightgreen" onclick="showGreenScreen()">ပြန်မလာဘူး</button>
+            </div>
+        </div>
+
+        <!-- Step 6: Full Screen Green "ပြန်လာမယ်" -->
+        <div class="step-card" id="step6">
+            <div class="full-screen-green" onclick="nextStep(7)">
+                ပြန်လာမယ်
+            </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="step-card" id="step7">
+            <h3>ဒါဆို ရည်းစားပြန်ဖြစ်ပြီနော် ဟဲဟဲ</h3>
+            <img src="https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif" class="sticker"><br>
+            <div class="btn-group">
+                <button class="btn btn-green" onclick="finishAgreement()">Yes, Of Course</button>
+                <button class="btn btn-lightgreen" onclick="showError(7)">No, No, No</button>
+            </div>
+            <div class="error-msg" id="err7">ငြင်းလို့မရတော့ဘူးလေ! 😄</div>
+        </div>
+
+        <!-- Step 8: Final Agreement -->
+        <div class="step-card" id="resultPage">
+            <div class="agreement-title">❤️ Our Love Agreement</div>
+            <ul class="agreement-list">
+                <li>1. ပြန်ချစ်ကြမလား? <span class="ans-tag">ချစ်တယ်</span></li>
+                <li>2. သတိရနေတာ သိရဲ့လား <span class="ans-tag">သိတယ်</span></li>
+                <li>3. ပြန်တွဲကြမယ်လေ နော်.. <span class="ans-tag">တွဲမယ်</span></li>
+                <li>4. ပြန်လာမယ်မလား <span class="ans-tag">ပြန်လာမယ်</span></li>
+                <li>5. ဒါဆို ရည်းစားပြန်ဖြစ်ပြီနော် ဟဲဟဲ <span class="ans-tag">Yes, Of Course</span></li>
+            </ul>
+            <button class="btn-save" onclick="alert('PNG ဖိုင် ဒေါင်းလုပ်ဆွဲနေပါပြီ...')">Save As PNG</button>
+        </div>
+    </div>
+
+    <script>
+        function nextStep(stepNumber) {
+            const cards = document.querySelectorAll('.step-card');
+            cards.forEach(card => card.classList.remove('active'));
+            document.getElementById('step' + stepNumber).classList.add('active');
+        }
+
+        function showError(stepNum) {
+            const err = document.getElementById('err' + stepNum);
+            err.style.display = 'block';
+        }
+
+        function showGreenScreen() {
+            const cards = document.querySelectorAll('.step-card');
+            cards.forEach(card => card.classList.remove('active'));
+            document.getElementById('step6').classList.add('active');
+        }
+
+        function finishAgreement() {
+            const cards = document.querySelectorAll('.step-card');
+            cards.forEach(card => card.classList.remove('active'));
+            document.getElementById('resultPage').classList.add('active');
+        }
+
+        function moveBtn() {
+            const btn = document.getElementById('runBtn');
+            const x = Math.random() * 120 - 60;
+            const y = Math.random() * 80 - 40;
+            btn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+    </script>
+
+</body>
+</html>
